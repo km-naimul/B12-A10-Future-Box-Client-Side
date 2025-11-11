@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { NavLink } from "react-router";
+import Swal from "sweetalert2";
+import { updateProfile } from "firebase/auth";
 
 const Register = () => {
-  const { createUser, signInWithGoogle } = useContext(AuthContext);
+  const { createUser, signInWithGoogle , updateUser , setUser } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -16,24 +18,83 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // 🔍 Password Validation
+  const validatePassword = (password) => {
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const isLengthValid = password.length >= 6;
+
+    if (!hasUppercase) {
+      Swal.fire("Warning", "Password must contain at least one uppercase letter!", "warning");
+      return false;
+    }
+    if (!hasLowercase) {
+      Swal.fire("Warning", "Password must contain at least one lowercase letter!", "warning");
+      return false;
+    }
+    if (!isLengthValid) {
+      Swal.fire("Warning", "Password must be at least 6 characters long!", "warning");
+      return false;
+    }
+    return true;
+  };
+
+  // 🔍 Photo URL validation
+  const validatePhotoUrl = (photoUrl) => {
+    if (!photoUrl || photoUrl.trim() === "") {
+      Swal.fire("Warning", "Please provide your Photo URL!", "warning");
+      return false;
+    }
+    return true;
+  };
+
+  // ✅ Register Function
   const handleRegister = (e) => {
     e.preventDefault();
+
+    // Check photo & password
+    if (!validatePhotoUrl(formData.photoUrl)) return;
+    if (!validatePassword(formData.password)) return;
+
     createUser(formData.email, formData.password)
-      .then(() => {
-        window.location.href = "/login"; // ✅ navigate ছাড়াই redirect
+      .then((result) => {
+        const user = result.user;
+
+        updateUser({displayName: formData.name,
+          photoURL: formData.photoUrl,}).then(()=>{
+            setUser({...user, displayName: formData.name,
+          photoURL: formData.photoUrl});
+          })
+
+
+
+        updateProfile(user, {
+          displayName: formData.name,
+          photoURL: formData.photoUrl,
+        })
+          .then(() => {
+            Swal.fire("Success!", "Registration successful!", "success");
+            window.location.href = "/login";
+          })
+          .catch(() => {
+            Swal.fire("Error", "Failed to update profile!", "error");
+          });
       })
       .catch((error) => {
-        console.log(error);
+        Swal.fire("Error", error.message, "error");
+        setUser(user);
       });
   };
 
+  // ✅ Google Sign-in
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then(() => {
-        window.location.href = "/"; // ✅ navigate ছাড়াই redirect
+        Swal.fire("Success!", "Signed in with Google!", "success");
+        window.location.href = "/";
       })
       .catch((error) => {
-        console.log(error);
+        Swal.fire("Error", error.message, "error");
       });
   };
 
@@ -52,6 +113,7 @@ const Register = () => {
               onChange={handleChange}
               required
             />
+
             <label className="label">Email</label>
             <input
               type="email"
@@ -61,6 +123,7 @@ const Register = () => {
               onChange={handleChange}
               required
             />
+
             <label className="label">Photo URL</label>
             <input
               type="text"
@@ -68,7 +131,9 @@ const Register = () => {
               className="input"
               placeholder="Photo URL"
               onChange={handleChange}
+              required
             />
+
             <label className="label">Password</label>
             <input
               type="password"

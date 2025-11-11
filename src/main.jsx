@@ -13,6 +13,8 @@ import Reports from './components/Reports/Reports.jsx';
 import AuthProvider from './contexts/AuthProvider.jsx';
 import Register from './components/Register/Register.jsx';
 import Login from './components/Login/Login.jsx';
+import MyProfile from './pages/MyProfile.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -42,6 +44,11 @@ const router = createBrowserRouter([
       {
         path: 'login',
         Component: Login
+      },
+
+      {
+        path: 'myprofile',
+        Component: MyProfile
       }
     ]
   },

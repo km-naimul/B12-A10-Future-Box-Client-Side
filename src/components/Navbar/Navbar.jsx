@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import logo from "../../assets/design-eye-catching-financial-logo.jpg";
 import { AuthContext } from "../../contexts/AuthContext";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleSignOut = () => {
     signOutUser()
@@ -15,32 +16,69 @@ const Navbar = () => {
       .catch((error) => console.log(error));
   };
 
+  // Protected link navigation
+  const handleProtectedClick = (path) => {
+    if (user) navigate(path);
+    else navigate("/login");
+  };
+
+  // Navbar Links JSX
   const links = (
-    <>
+    <ul className="flex items-center gap-6 ">
       <li className="font-semibold">
-        <NavLink to="/">Home</NavLink>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive
+              ? "text-primary"
+              : "text-gray-700 hover:text-primary transition-colors"
+          }
+        >
+          Home
+        </NavLink>
       </li>
 
-      {user && (
-        <>
-          <li className="font-semibold">
-            <NavLink to="/addTransaction">Add Transaction</NavLink>
-          </li>
-          <li className="font-semibold">
-            <NavLink to="/mytransactions">My Transactions</NavLink>
-          </li>
-          <li className="font-semibold">
-            <NavLink to="/reports">Reports</NavLink>
-          </li>
-        </>
-      )}
-    </>
+      <li
+        className="font-semibold cursor-pointer"
+        onClick={() => handleProtectedClick("/addTransaction")}
+      >
+        <span className="hover:text-primary transition-colors">
+          Add Transaction
+        </span>
+      </li>
+
+      <li
+        className="font-semibold cursor-pointer"
+        onClick={() => handleProtectedClick("/mytransactions")}
+      >
+        <span className="hover:text-primary transition-colors">
+          My Transactions
+        </span>
+      </li>
+
+      <li
+        className="font-semibold cursor-pointer"
+        onClick={() => handleProtectedClick("/reports")}
+      >
+        <span className="hover:text-primary transition-colors">
+          Reports
+        </span>
+      </li>
+
+{user && ( <> <li className="font-semibold"> <NavLink to="/myprofile">My Profile </NavLink> </li>  </> )}
+
+
+    </ul>
   );
 
+
+
+
   return (
-    <div className="navbar bg-gradient-to-r from-primary/20 via-base-200 to-secondary/20 shadow-sm">
+    <div className="navbar bg-gradient-to-r from-primary/20 via-base-200 to-secondary/20 shadow-sm px-4 lg:px-10">
       {/* Left Section */}
       <div className="navbar-start">
+        {/* Mobile Dropdown */}
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
@@ -60,29 +98,37 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow"
           >
             {links}
             <li className="font-semibold">
-              <NavLink to="/register">Register</NavLink>
+              <NavLink
+                to="/register"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-primary underline"
+                    : " hover:text-primary transition-colors"
+                }
+              >
+                Register
+              </NavLink>
             </li>
           </ul>
         </div>
 
+        {/* Logo */}
         <div className="flex items-center">
           <img src={logo} alt="logo" className="w-12 h-12 object-contain py-2" />
-          <a className="text-4xl font-bold flex items-center">
+          <a className="text-4xl font-bold flex items-center ml-2">
             Fin <span className="text-primary">Ease</span>
           </a>
         </div>
       </div>
 
-      {/* Center Links */}
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{links}</ul>
-      </div>
+      {/* Center Links (Desktop) */}
+      <div className="navbar-center hidden lg:flex">{links}</div>
 
-      {/* Right Side */}
+      {/* Right Section */}
       <div className="navbar-end gap-3">
         {user ? (
           <div className="relative">
@@ -115,13 +161,21 @@ const Navbar = () => {
           <>
             <NavLink
               to="/register"
-              className="btn btn-outline btn-primary font-semibold"
+              className={({ isActive }) =>
+                isActive
+                  ? "btn btn-outline btn-primary font-semibold"
+                  : "btn btn-outline btn-primary font-semibold  "
+              }
             >
               Register
             </NavLink>
             <NavLink
               to="/login"
-              className="btn btn-accent text-white font-semibold"
+              className={({ isActive }) =>
+                isActive
+                  ? "btn btn-accent text-white font-semibold"
+                  : "btn btn-accent text-white font-semibold hover:bg-accent/90 transition-colors"
+              }
             >
               Login
             </NavLink>
