@@ -89,9 +89,28 @@ const Register = () => {
   // ✅ Google Sign-in
   const handleGoogleSignIn = () => {
     signInWithGoogle()
-      .then(() => {
-        Swal.fire("Success!", "Signed in with Google!", "success");
-        window.location.href = "/";
+      .then(result => {
+        console.log(result.user);
+        
+        // Swal.fire("Success!", "Signed in with Google!", "success");
+        // window.location.href = "/";
+        const newUser = {
+            name: result.user.displayName,
+            email: result.user.email,
+            image: result.user.photoURL
+        }
+
+        fetch('http://localhost:3000/users',{
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(newUser)
+        })
+        .then(res => res.json())
+        .then(data =>{
+            console.log('data after user save', data)
+        })
       })
       .catch((error) => {
         Swal.fire("Error", error.message, "error");

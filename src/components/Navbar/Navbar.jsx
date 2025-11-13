@@ -40,7 +40,7 @@ const Navbar = () => {
 
       <li
         className="font-semibold cursor-pointer"
-        onClick={() => handleProtectedClick("/addTransaction")}
+        onClick={() => handleProtectedClick("/add-transaction")}
       >
         <span className="hover:text-primary transition-colors">
           Add Transaction
@@ -49,7 +49,7 @@ const Navbar = () => {
 
       <li
         className="font-semibold cursor-pointer"
-        onClick={() => handleProtectedClick("/mytransactions")}
+        onClick={() => handleProtectedClick("/my-transactions")}
       >
         <span className="hover:text-primary transition-colors">
           My Transactions

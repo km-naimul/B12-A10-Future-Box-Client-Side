@@ -1,7 +1,7 @@
 import React from "react";
-import { useRouteError, Link } from "react-router"; 
+import { Link } from "react-router"; 
 const ErrorPage = () => {
-  const error = useRouteError();
+  
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-center bg-green-200">

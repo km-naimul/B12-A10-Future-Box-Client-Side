@@ -7,33 +7,43 @@ import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import RootLayout from './layouts/RootLayout.jsx';
 import Home from './components/Home/Home.jsx';
-import AddTransaction from './components/AddTransaction/AddTransaction.jsx';
-import MyTransactions from './components/MyTransactions/MyTransactions.jsx';
 import Reports from './components/Reports/Reports.jsx';
 import AuthProvider from './contexts/AuthProvider.jsx';
 import Register from './components/Register/Register.jsx';
 import Login from './components/Login/Login.jsx';
 import MyProfile from './pages/MyProfile.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
+import MyTransactions from './components/MyTransactions/MyTransactions.jsx';
+import AddTransaction from './components/AddTransaction/AddTransaction.jsx';
+import TransactionDetails from './components/TransactionDetails/TransactionDetails.jsx';
+import UpdateTransaction from './components/UpdateTransaction/UpdateTransaction.jsx';
  
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
-    errorElement: <ErrorPage />, // ✅ এখানে error page যুক্ত করা হলো
+    errorElement: <ErrorPage />, 
     children: [
       {
         index: true,
         Component: Home
       },
       {
-        path: 'addTransaction',
-        Component: AddTransaction
+        path: 'add-transaction',
+        element: <AddTransaction> </AddTransaction>
       },
       {
-        path: 'mytransactions',
-        Component: MyTransactions
+        path: 'my-transactions',
+        element: <MyTransactions> </MyTransactions>
+      },
+      {
+        path: 'transaction/:id',
+        element: <TransactionDetails> </TransactionDetails>
+      },
+      {
+        path: 'transaction/update/:id',
+        element: <UpdateTransaction> </UpdateTransaction>
       },
       {
         path: 'reports',
