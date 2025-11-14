@@ -35,7 +35,9 @@ const router = createBrowserRouter([
       },
       {
         path: 'my-transactions',
-        element: <MyTransactions> </MyTransactions>
+        element: <MyTransactions> </MyTransactions>,
+        loader: () => fetch ('http://localhost:3000/transactions')
+
       },
       {
         path: 'transaction/:id',
