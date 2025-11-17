@@ -81,7 +81,7 @@ const UpdateTransaction = () => {
     );
 
   return (
-    <div className="max-w-xl mx-auto mt-10 p-6 bg-base-200 rounded-2xl shadow-lg">
+    <div className="max-w-xl mx-auto mt-10 p-6 bg-sky-200 rounded-2xl shadow-lg mb-4">
       <h1 className="text-3xl font-bold text-primary text-center mb-6">
         Update Transaction
       </h1>
@@ -163,6 +163,7 @@ const UpdateTransaction = () => {
             <option value="health">Health</option>
             <option value="education">Education</option>
             <option value="home">Home</option>
+            <option value="home">Others</option>
           </select>
           <p className="text-xs text-gray-500">
             Current: {transaction.category}
@@ -176,7 +177,7 @@ const UpdateTransaction = () => {
         </div>
 
         {/* Save Button */}
-        <button type="submit" className="btn btn-primary w-full mt-4">
+        <button type="submit" className="btn bg-yellow-500 w-full mt-4 hover:bg-primary text-base-100">
           Update Transaction
         </button>
       </form>
