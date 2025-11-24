@@ -17,7 +17,6 @@ const Navbar = () => {
   const mobileAvatarRef = useRef(null);
   const desktopAvatarRef = useRef(null);
 
-  
   useEffect(() => {
     const html = document.querySelector("html");
     html.setAttribute("data-theme", theme);
@@ -25,8 +24,7 @@ const Navbar = () => {
   }, [theme]);
 
   const handleTheme = (checked) => setTheme(checked ? "dark" : "light");
-
-  
+ 
   useEffect(() => {
     const close = (e) => {
       if (mobileAvatarRef.current && !mobileAvatarRef.current.contains(e.target)) {
@@ -161,7 +159,6 @@ const Navbar = () => {
               )}
             </ul>
           </div>
-
          
           <div className="flex items-center gap-2">
             <img src={logo} className="w-12 h-12 rounded-lg" />
@@ -173,8 +170,7 @@ const Navbar = () => {
               </span>
             </h1>
           </div>
-
-         
+      
           {user ? (
             <div
               className="relative"
@@ -234,7 +230,7 @@ const Navbar = () => {
           defaultChecked={theme === "dark"}
           className="toggle toggle-sm"
         />
-        
+
         {user ? (
           <div className="relative" ref={desktopAvatarRef}>
             <img

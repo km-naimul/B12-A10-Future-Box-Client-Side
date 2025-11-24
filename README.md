@@ -1,5 +1,6 @@
 # FinEase – Personal Finance Management App  
-Live Site: https://extraordinary-paprenjak-cd6d76.netlify.app/
+
+## Live Site:  https://extraordinary-paprenjak-cd6d76.netlify.app/
 
 ---
 
@@ -13,17 +14,5 @@ Live Site: https://extraordinary-paprenjak-cd6d76.netlify.app/
 - **Responsive UI** – Fully optimized for mobile, tablet, and desktop devices.
 - **Dark/Light Theme** – Switch between modern color themes instantly.
 - **User Dashboard** – View all transactions, budgets, and analytics in one place.
-
----
-
-## Technologies Used
-
-- **React.js**
-- **Tailwind CSS**
-- **DaisyUI**
-- **Firebase Auth**
-- **Recharts**
-- **Node.js + Express (Backend)**
-- **MongoDB (Database)**
 
 ---

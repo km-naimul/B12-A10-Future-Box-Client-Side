@@ -48,7 +48,6 @@ const UpdateTransaction = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-
     const handleUpdate = (e) => {
     e.preventDefault();
 

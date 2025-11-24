@@ -9,10 +9,9 @@ const MyTransactions = () => {
   const { user } = useContext(AuthContext);
   const [transactions, setTransactions] = useState([]);
   const [sortBy, setSortBy] = useState("date");
-  const [loading, setLoading] = useState(true); // <-- ADDED
+  const [loading, setLoading] = useState(true); 
   const navigate = useNavigate();
 
-  // Fetch transactions with sorting
   useEffect(() => {
     if (user?.email) {
       fetch(
@@ -60,15 +59,12 @@ const MyTransactions = () => {
       </div>
     );
   }
-
-  
   return (
     <div className=" mx-auto p-8 w-full min-h-screen">
       <h2 className="text-4xl font-extrabold text-center mb-10 text-teal-600">
         My Transactions
       </h2>
-
-     
+   
       <div className="flex justify-center gap-4 mb-8">
         <button
           onClick={() => setSortBy("date")}
@@ -87,8 +83,7 @@ const MyTransactions = () => {
           Sort by Amount
         </button>
       </div>
-
-    
+  
       {transactions.length === 0 ? (
         <p className="text-center text-gray-500 text-lg">No transactions found.</p>
       ) : (
@@ -109,7 +104,6 @@ const MyTransactions = () => {
               <div className="absolute inset-0 bg-white/70 dark:bg-black/60 "></div>
 
               <div className="relative">
-                {/* Top Row — Type + Date */}
                 <div className="flex flex-col items-center bg-white/100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-lg p-2">
                   <span
                     className={`w-full text-xs font-semibold badge ${
@@ -124,9 +118,7 @@ const MyTransactions = () => {
                   <span className="text-gray-700 dark:text-gray-300 text-sm">
                     Date: {new Date(t.date).toLocaleDateString()}
                   </span>
-                </div>
-
-              
+                </div>           
                 <div className="flex justify-between items-center mt-4">
                   <p className="text-sm font-bold text-gray-700 dark:text-gray-300">
                     Category:
@@ -135,8 +127,7 @@ const MyTransactions = () => {
                     {t.category.charAt(0).toUpperCase() + t.category.slice(1)}
                   </p>
                 </div>
-
-               
+           
                 <div className="flex justify-between items-center mt-2">
                   <p className="text-sm font-bold text-gray-700 dark:text-gray-300">
                     Amount:
@@ -149,7 +140,6 @@ const MyTransactions = () => {
                     ${t.amount}
                   </p>
                 </div>
-
                
                 <div className="mt-3">
                   <p className="text-sm font-bold text-gray-700 dark:text-gray-300">
@@ -159,8 +149,7 @@ const MyTransactions = () => {
                     {t.description || "No description available."}
                   </p>
                 </div>
-
-            
+           
                 <div className="flex w-full flex-col space-y-2 mt-4">
                   <button
                     onClick={() => navigate(`/transaction/${t._id}`)}

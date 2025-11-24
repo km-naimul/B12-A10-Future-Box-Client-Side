@@ -106,9 +106,7 @@ const Login = () => {
 
           </fieldset>
         </form>
-
         <h2 className="text-center mt-2">or</h2>
-
         <button
   onClick={handleGoogleSignIn}
   className="btn bg-white text-black border-[#e5e5e5] w-full 
@@ -116,8 +114,6 @@ const Login = () => {
 >
   Login with Google
 </button>
-
-
         <div className="font-semibold text-center pt-4">
           Don't have an account?{" "}
           <NavLink to="/register" className="text-primary">
@@ -125,12 +121,9 @@ const Login = () => {
           </NavLink>
         </div>
       </div>
-
       <ToastContainer />
         </div>
-    </div>
-
-    
+    </div>  
   );
 };
 

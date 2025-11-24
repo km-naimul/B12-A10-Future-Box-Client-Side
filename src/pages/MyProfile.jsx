@@ -50,7 +50,6 @@ const MyProfile = () => {
     <div className="flex justify-center mt-10 px-4 mb-4">
       <div className="bg-blue-200 w-full max-w-md shadow-xl rounded-3xl p-6 text-center relative">
 
-        {/* PROFILE IMAGE */}
         <img
           src={user.photoURL || "https://i.ibb.co/3d8YQfP/default-user.png"}
           className="w-40 h-40 object-cover mx-auto rounded-2xl shadow-md"
